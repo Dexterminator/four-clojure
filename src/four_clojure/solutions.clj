@@ -5,7 +5,7 @@
   (reduce (fn [maximum new] (if (> new maximum) new maximum)) args))
 
 
-;39
+;39, Interleave Two Seqs
 (fn [lst1 lst2]
   (loop [x (seq lst1)
          y (seq lst2)
@@ -14,7 +14,7 @@
       (recur (seq (rest x)) (seq (rest y)) (conj interleaved (first x) (first y)))
       interleaved)))
 
-;40
+;40, Interpose a Seq
 (fn [separator lst]
   (reduce (fn [interposed val]
             (conj interposed separator val))
@@ -23,4 +23,7 @@
 
 (fn [sep lst] (drop-last (interleave lst (repeat sep))))
 
+;41, Drop Every Nth Item
+(fn [coll n]
+  (keep-indexed (fn [i item] (if (not= 0 (mod (inc i) n)) item)) coll))
 

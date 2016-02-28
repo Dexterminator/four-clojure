@@ -1,16 +1,16 @@
 (ns four-clojure.core
   (:gen-class))
 
-;(defn my-interpose
-;  [separator lst]
-;  (reduce (fn [interposed val]
-;            (conj interposed separator val))
-;          (vector (first lst))
-;          (rest lst)))
-(defn my-interpose
-  [sep lst]
-  (drop-last (interleave lst (repeat sep))))
+(defn drop-nth
+  [coll n]
+  (keep-indexed (fn [i item]
+                  (if (not= 0 (mod (inc i) n))
+                    item))
+                coll))
 
-(= (my-interpose 0 [1 2 3]) [1 0 2 0 3])
-(= (apply str (my-interpose ", " ["one" "two" "three"]) "one, two, three"))
-(= (my-interpose :z [:a :b :c :d]) [:a :z :b :z :c :z :d])
+(drop-nth [1 2 3 4 5 6 7 8] 3)
+(drop-nth [:a :b :c :d :e :f] 2)
+(drop-nth [1 2 3 4 5 6] 4)
+
+(= (drop-nth [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
+(= (drop-nth [1 2 3 4 5 6] 4) [1 2 3 5 6])
