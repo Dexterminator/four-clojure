@@ -27,3 +27,7 @@
 (fn [coll n]
   (keep-indexed (fn [i item] (if (not= 0 (mod (inc i) n)) item)) coll))
 
+;42
+(fn [n]
+  (reduce * (range 1 (inc n))))
+

@@ -1,16 +1,10 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn drop-nth
-  [coll n]
-  (keep-indexed (fn [i item]
-                  (if (not= 0 (mod (inc i) n))
-                    item))
-                coll))
+(defn factorial [n]
+  (reduce * (range 1 (inc n))))
 
-(drop-nth [1 2 3 4 5 6 7 8] 3)
-(drop-nth [:a :b :c :d :e :f] 2)
-(drop-nth [1 2 3 4 5 6] 4)
-
-(= (drop-nth [1 2 3 4 5 6 7 8] 3) [1 2 4 5 7 8])
-(= (drop-nth [1 2 3 4 5 6] 4) [1 2 3 5 6])
+(= (factorial 1) 1)
+(= (factorial 3) 6)
+(= (factorial 5) 120)
+(= (factorial 8) 40320)
