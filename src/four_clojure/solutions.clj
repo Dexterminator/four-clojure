@@ -13,3 +13,14 @@
     (if (and x y)
       (recur (seq (rest x)) (seq (rest y)) (conj interleaved (first x) (first y)))
       interleaved)))
+
+;40
+(fn [separator lst]
+  (reduce (fn [interposed val]
+            (conj interposed separator val))
+          (vector (first lst))
+          (rest lst)))
+
+(fn [sep lst] (drop-last (interleave lst (repeat sep))))
+
+

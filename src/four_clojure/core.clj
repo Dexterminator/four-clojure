@@ -1,19 +1,16 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn my-interleave
-  [lst1 lst2]
-  (loop [x (seq lst1)
-         y (seq lst2)
-         interleaved []]
-    (if (and x y)
-      (recur (seq (rest x)) (seq (rest y)) (conj interleaved (first x) (first y)))
-      interleaved)))
+;(defn my-interpose
+;  [separator lst]
+;  (reduce (fn [interposed val]
+;            (conj interposed separator val))
+;          (vector (first lst))
+;          (rest lst)))
+(defn my-interpose
+  [sep lst]
+  (drop-last (interleave lst (repeat sep))))
 
-
-(= (my-interleave [1 2 3] [:a :b :c]) '(1 :a 2 :b 3 :c))
-(= (my-interleave [1 2 3] [:a :b :c]) '(1 :a 2 :b 3 :c))
-(= (my-interleave [1 2] [3 4 5 6]) '(1 3 2 4))
-(= (my-interleave [1 2 3 4] [5]) [1 5])
-
-(rest [1 2 3])
+(= (my-interpose 0 [1 2 3]) [1 0 2 0 3])
+(= (apply str (my-interpose ", " ["one" "two" "three"]) "one, two, three"))
+(= (my-interpose :z [:a :b :c :d]) [:a :z :b :z :c :z :d])
