@@ -27,7 +27,10 @@
 (fn [coll n]
   (keep-indexed (fn [i item] (if (not= 0 (mod (inc i) n)) item)) coll))
 
-;42
+;42 Factorial Fun
 (fn [n]
   (reduce * (range 1 (inc n))))
 
+;43 Reverse Interleave
+(fn[lst n]
+  (apply map vector (partition n lst)))
