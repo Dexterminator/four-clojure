@@ -34,3 +34,9 @@
 ;43 Reverse Interleave
 (fn[lst n]
   (apply map vector (partition n lst)))
+
+;44 Rotate Sequence
+(fn [rotation lst]
+  (let [n (mod rotation (count lst))]
+    (flatten (reverse (split-at n lst)))))
+
