@@ -3,6 +3,11 @@
 ;27, Palindrome Detector
 (fn [coll] (= (seq coll) (reverse coll)))
 
+; 28. Flatten a Sequence
+(fn [x]
+  (filter (complement sequential?)
+          (rest (tree-seq sequential? seq x))))
+
 ;32, Duplicate a Sequence
 (fn [coll] (mapcat #(vector % %) coll))
 
@@ -51,3 +56,5 @@
 (defn [fun]
   (fn [& args] (apply fun (reverse args))))
 
+;49  Split a sequence
+(fn [n coll] [(take n coll) (drop n coll)])

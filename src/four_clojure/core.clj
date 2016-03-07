@@ -1,10 +1,7 @@
 (ns four-clojure.core
   (:gen-class))
+(use 'clojure.walk)
 
-(defn palindrome?
-  [coll]
-  (= (seq coll) (reverse coll)))
+(fn [n coll] [(take n coll) (drop n coll)])
 
-(fn [coll] (= (seq coll) (reverse coll)))
-(false? (palindrome? '(1 2 3 4 5)))
-(true? (palindrome? "racecar"))
+(= (my-split 3 [1 2 3 4 5 6]) [[1 2 3] [4 5 6]])
