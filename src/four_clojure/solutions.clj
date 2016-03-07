@@ -58,3 +58,6 @@
 
 ;49  Split a sequence
 (fn [n coll] [(take n coll) (drop n coll)])
+
+;50 Split by Type
+(fn [coll] (vals (group-by type coll)))
