@@ -1,5 +1,8 @@
 (ns four-clojure.solutions)
 
+;27, Palindrome Detector
+(fn [coll] (= (seq coll) (reverse coll)))
+
 ;32, Duplicate a Sequence
 (fn [coll] (mapcat #(vector % %) coll))
 
