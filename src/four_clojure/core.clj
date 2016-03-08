@@ -1,16 +1,15 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn compress
-  [coll]
-  (reduce (fn [compressed val]
-            (if (= (last compressed) val)
-              compressed
-              (conj compressed val)))
-          [(first coll)]
-          (rest coll)))
+(defn my-range
+  [from to]
+  (take (- to from) (iterate inc from)))
 
-(= (apply str (compress "Leeeeeerrroyyy")) "Leroy")
-(= (compress [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
-(= (compress [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
+(fn [from to] (take (- to from) (iterate inc from)))
 
+(my-range 1 4)
+(my-range -2 2)
+
+(= (my-range 1 4) '(1 2 3))
+(= (my-range -2 2) '(-2 -1 0 1))
+(= (my-range 5 8) '(5 6 7))

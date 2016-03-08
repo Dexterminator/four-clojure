@@ -20,6 +20,12 @@
 ;32, Duplicate a Sequence
 (fn [coll] (mapcat #(vector % %) coll))
 
+;33, Write a function which replicates each element of a sequence a variable number of times.
+(fn [coll n] (mapcat #(repeat n %) coll))
+
+;34 Write a function which creates a list of all integers in a given range.
+(fn [from to] (take (- to from) (iterate inc from)))
+
 ;38, Maximum value
 (fn [& args]
   (reduce (fn [maximum new] (if (> new maximum) new maximum)) args))
