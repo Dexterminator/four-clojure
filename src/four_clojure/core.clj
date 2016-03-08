@@ -1,15 +1,12 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn my-range
-  [from to]
-  (take (- to from) (iterate inc from)))
+(defn fib
+  [n]
+  (->> (iterate #(vector (second %) (apply + %)) [1 1])
+      (take n)
+      (map first)))
 
-(fn [from to] (take (- to from) (iterate inc from)))
-
-(my-range 1 4)
-(my-range -2 2)
-
-(= (my-range 1 4) '(1 2 3))
-(= (my-range -2 2) '(-2 -1 0 1))
-(= (my-range 5 8) '(5 6 7))
+(apply + [1 1])
+(fib 8)
+(= (fib 8) '(1 1 2 3 5 8 13 21))

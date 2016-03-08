@@ -1,5 +1,11 @@
 (ns four-clojure.solutions)
 
+;26. Write a function which returns the first X fibonacci numbers.
+(fn [n]
+  (->> (iterate #(vector (second %) (apply + %)) [1 1])
+       (take n)
+       (map first)))
+
 ;27. Write a function which returns true if the given sequence is a palindrome.
 (fn [coll] (= (seq coll) (reverse coll)))
 
