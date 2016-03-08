@@ -14,6 +14,10 @@
   (filter (complement sequential?)
           (rest (tree-seq sequential? seq x))))
 
+;29. Write a function which takes a string and returns a new string containing only the capital letters.
+(fn [string]
+  (apply str (filter #(Character/isUpperCase %) string)))
+
 ;30. Write a function which removes consecutive duplicates from a sequence.
 (fn [coll]
   (reduce (fn [compressed val]
@@ -93,3 +97,11 @@
     (let [longest
           (first (sort-by count > (all-subseqs coll)))]
       (if (>= (count longest) 2) longest []))))
+
+;54. Write a function which returns a sequence of lists of x items each. Lists of less than x items should not be returned.
+(fn [n coll]
+  (loop [res [] remaining coll]
+    (if (> n (count remaining))
+      res
+      (let [[part tail] (split-at n remaining)]
+        (recur (conj res part) tail)))))
