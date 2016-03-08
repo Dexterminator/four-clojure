@@ -1,24 +1,16 @@
 (ns four-clojure.core
   (:gen-class))
 
-(fn lis
+(defn compress
   [coll]
-  (letfn [(all-subseqs [coll]
-            (reductions (fn [increasing val]
-                          (if (> val (last increasing))
-                            (conj increasing val)
-                            [val]))
-                        [(first coll)]
-                        (rest coll)))]
-    (let [longest
-          (first (sort-by count > (all-subseqs coll)))]
-      (if (>= (count longest) 2) longest []))))
+  (reduce (fn [compressed val]
+            (if (= (last compressed) val)
+              compressed
+              (conj compressed val)))
+          [(first coll)]
+          (rest coll)))
 
-(lis [5 1 2 3])
-(lis [5 6 1 3 2 7])
-(lis [7 6 5 4])
+(= (apply str (compress "Leeeeeerrroyyy")) "Leroy")
+(= (compress [1 1 2 3 3 2 2 3]) '(1 2 3 2 3))
+(= (compress [[1 2] [1 2] [3 4] [1 2]]) '([1 2] [3 4] [1 2]))
 
-(= (lis [1 0 1 2 3 0 4 5]) [0 1 2 3])
-(= (lis [5 6 1 3 2 7]) [5 6])
-(= (lis [2 3 3 4 5]) [3 4 5])
-(= (lis [7 6 5 4]) [])

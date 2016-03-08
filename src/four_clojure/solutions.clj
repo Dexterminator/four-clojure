@@ -8,6 +8,15 @@
   (filter (complement sequential?)
           (rest (tree-seq sequential? seq x))))
 
+;30, Write a function which removes consecutive duplicates from a sequence.
+(fn [coll]
+  (reduce (fn [compressed val]
+            (if (= (last compressed) val)
+              compressed
+              (conj compressed val)))
+          [(first coll)]
+          (rest coll)))
+
 ;32, Duplicate a Sequence
 (fn [coll] (mapcat #(vector % %) coll))
 
