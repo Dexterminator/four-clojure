@@ -105,3 +105,11 @@
       res
       (let [[part tail] (split-at n remaining)]
         (recur (conj res part) tail)))))
+
+;55. Write a function which returns a map containing the number of occurences of each distinct item in a sequence.
+(fn [coll]
+  (reduce (fn [frequency-map [key val]]
+            (assoc frequency-map key (count val)))
+          {}
+          (group-by identity coll)))
+
