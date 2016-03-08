@@ -61,3 +61,16 @@
 
 ;50 Split by Type
 (fn [coll] (vals (group-by type coll)))
+
+;53 Longest Increasing Sub-Seq
+(fn [coll]
+  (letfn [(all-subseqs [coll]
+            (reductions (fn [increasing val]
+                          (if (> val (last increasing))
+                            (conj increasing val)
+                            [val]))
+                        [(first coll)]
+                        (rest coll)))]
+    (let [longest
+          (first (sort-by count > (all-subseqs coll)))]
+      (if (>= (count longest) 2) longest []))))
