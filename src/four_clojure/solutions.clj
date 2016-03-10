@@ -113,3 +113,24 @@
           {}
           (group-by identity coll)))
 
+;56. Write a function which removes the duplicates from a sequence. Order of the items must be maintained.
+(fn [coll]
+  (loop [encountered #{} distinct-list [] remaining coll]
+    (if-not (seq remaining)
+      distinct-list
+      (let [val (first remaining)
+            updated-list (if (some #{val} encountered)
+                           distinct-list
+                           (conj distinct-list val))]
+        (recur (conj updated-list val) updated-list (rest remaining))))))
+
+;61. Write a function which takes a vector of keys and a vector of values and constructs a map from them.
+#(apply assoc {} (interleave %1 %2))
+
+;66. Given two integers, write a function which returns the greatest common divisor.
+(fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
+
+;83. Write a function which takes a variable number of booleans. Your function should return true if some of the
+; parameters are true, but not all of the parameters are true. Otherwise your function should return false.
+(fn [& args] (boolean (and (some false? args) (some true? args))))
+
