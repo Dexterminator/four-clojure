@@ -141,6 +141,10 @@
 ; parameters are true, but not all of the parameters are true. Otherwise your function should return false.
 (fn [& args] (boolean (and (some false? args) (some true? args))))
 
+;107. Given a positive integer n, return a function (f x) which computes xn.
+; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
+(fn [n] (fn [x] (int (Math/pow x n))))
+
 ;166. Write a function that takes three arguments, a less than operator for the data and two items to compare.
 ; The function should return a keyword describing the relationship between the two items.
 (fn [lt-fn x y]

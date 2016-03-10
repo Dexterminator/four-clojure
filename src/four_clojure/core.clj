@@ -1,13 +1,11 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn my-iterate
-  [f x]
-  (lazy-seq (cons x (my-iterate f (f x)))))
+(fn [n] (fn [x] (int (Math/pow x n))))
 
-(fn [f x] (lazy-seq (cons x (my-iterate f (f x)))))
+((simple-closure 2) 16)
 
-(= (take 5 (my-iterate #(* 2 %) 1)) [1 2 4 8 16])
-(= (take 100 (my-iterate inc 0)) (take 100 (range)))
-(= (take 9 (my-iterate #(inc (mod % 3)) 1)) (take 9 (cycle [1 2 3])))
-
+(= 256 ((simple-closure 2) 16),
+   ((simple-closure 8) 2))
+(= [1 8 27 64] (map (simple-closure 3) [1 2 3 4]))
+(= [1 2 4 8 16] (map #((simple-closure %) 2) [0 1 2 3 4]))
