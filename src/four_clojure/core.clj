@@ -1,7 +1,19 @@
 (ns four-clojure.core
   (:gen-class))
 
-(fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
+(defn comparisons
+  [lt-fn x y]
+  (cond
+    (lt-fn x y) :lt
+    (lt-fn y x) :gt
+    :else :eq))
 
-(= (gcd 1023 858) 33)
+(comparisons < 5 1)
+(comparisons (fn [x y] (< (count x) (count y))) "pear" "plum")
+(comparisons (fn [x y] (< (mod x 5) (mod y 5))) 21 3)
+(comparisons > 0 2)
+(= :gt (comparisons < 5 1))
+(= :eq (comparisons (fn [x y] (< (count x) (count y))) "pear" "plum"))
+(= :lt (comparisons (fn [x y] (< (mod x 5) (mod y 5))) 21 3))
+(= :gt (comparisons > 0 2))
 

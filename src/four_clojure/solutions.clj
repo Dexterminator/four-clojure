@@ -130,7 +130,17 @@
 ;66. Given two integers, write a function which returns the greatest common divisor.
 (fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
 
+;81. Write a function which returns the intersection of two sets. The intersection is the sub-set of items that each set has in common.
+(fn my-intersection [set1 set2] (set (for [x set1 :when (set2 x)] x)))
+
 ;83. Write a function which takes a variable number of booleans. Your function should return true if some of the
 ; parameters are true, but not all of the parameters are true. Otherwise your function should return false.
 (fn [& args] (boolean (and (some false? args) (some true? args))))
 
+;166. Write a function that takes three arguments, a less than operator for the data and two items to compare.
+; The function should return a keyword describing the relationship between the two items.
+(fn [lt-fn x y]
+  (cond
+    (lt-fn x y) :lt
+    (lt-fn y x) :gt
+    :else :eq))
