@@ -166,6 +166,13 @@
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
 
+;122. Convert a binary number, provided in the form of a string, to its numerical value.
+(fn [bin-str]
+  (let [pows (map-indexed (fn [idx num]
+                            (Math/pow (* 2 (Character/getNumericValue num)) (+ idx 1)))
+                          (reverse bin-str))]
+    (/ (int (reduce + pows)) 2)))
+
 ;166. Write a function that takes three arguments, a less than operator for the data and two items to compare.
 ; The function should return a keyword describing the relationship between the two items.
 (fn [lt-fn x y]

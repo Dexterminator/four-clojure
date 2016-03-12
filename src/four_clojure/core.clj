@@ -1,20 +1,20 @@
 (ns four-clojure.core
   (:gen-class))
 
+(fn [bin-str]
+  (let [pows (map-indexed (fn [idx num]
+                              (Math/pow (* 2 (Character/getNumericValue num)) (+ idx 1)))
+                            (reverse bin-str))]
+    (/ (int (reduce + pows)) 2)))
 
-(defn symdiff
-  [set1 set2]
-  (let [union (clojure.set/union set1 set2)
-        intersection (clojure.set/intersection set1 set2)]
-    (clojure.set/difference union intersection)))
+(read-bin "11111111")
+(read-bin "1000")
+(read-bin "0")
 
-(fn [set1 set2]
-  (let [union (clojure.set/union set1 set2)
-        intersection (clojure.set/intersection set1 set2)]
-    (clojure.set/difference union intersection)))
-
-(symdiff #{1 2 3 4 5 6} #{1 3 5 7})
-(= (symdiff #{1 2 3 4 5 6} #{1 3 5 7}) #{2 4 6 7})
-(= (symdiff #{:a :b :c} #{}) #{:a :b :c})
-(= (symdiff #{} #{4 5 6}) #{4 5 6})
-(= (symdiff #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]})
+(= 0 (read-bin "0"))
+(= 7 (read-bin "111"))
+(= 8 (read-bin "1000"))
+(= 9 (read-bin "1001"))
+(= 255 (read-bin "11111111"))
+(= 1365 (read-bin "10101010101"))
+(= 65535 (read-bin "1111111111111111"))
