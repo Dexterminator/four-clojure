@@ -1,15 +1,20 @@
 (ns four-clojure.core
   (:gen-class))
 
-(fn [f s]
-  (reduce (fn [groups x]
-            (update-in groups [(f x)] #(concat % [x])))
-          {}
-          s))
 
-(my-group-by #(> % 5) [1 3 6 8])
-(= (my-group-by #(> % 5) [1 3 6 8]) {false [1 3], true [6 8]})
-(= (my-group-by #(apply / %) [[1 2] [2 4] [4 6] [3 6]])
-   {1/2 [[1 2] [2 4] [3 6]], 2/3 [[4 6]]})
-(= (my-group-by count [[1] [1 2] [3] [1 2 3] [2 3]])
-   {1 [[1] [3]], 2 [[1 2] [2 3]], 3 [[1 2 3]]})
+(defn symdiff
+  [set1 set2]
+  (let [union (clojure.set/union set1 set2)
+        intersection (clojure.set/intersection set1 set2)]
+    (clojure.set/difference union intersection)))
+
+(fn [set1 set2]
+  (let [union (clojure.set/union set1 set2)
+        intersection (clojure.set/intersection set1 set2)]
+    (clojure.set/difference union intersection)))
+
+(symdiff #{1 2 3 4 5 6} #{1 3 5 7})
+(= (symdiff #{1 2 3 4 5 6} #{1 3 5 7}) #{2 4 6 7})
+(= (symdiff #{:a :b :c} #{}) #{:a :b :c})
+(= (symdiff #{} #{4 5 6}) #{4 5 6})
+(= (symdiff #{[1 2] [2 3]} #{[2 3] [3 4]}) #{[1 2] [3 4]})

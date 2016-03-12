@@ -149,6 +149,13 @@
 ; parameters are true, but not all of the parameters are true. Otherwise your function should return false.
 (fn [& args] (boolean (and (some false? args) (some true? args))))
 
+;88. Write a function which returns the symmetric difference of two sets.
+; The symmetric difference is the set of items belonging to one but not both of the two sets.
+(fn [set1 set2]
+  (let [union (clojure.set/union set1 set2)
+        intersection (clojure.set/intersection set1 set2)]
+    (clojure.set/difference union intersection)))
+
 ;90. Write a function which calculates the Cartesian product of two sets.
 (fn [set1 set2] (set (for [x set1 y set2] [x y])))
 
