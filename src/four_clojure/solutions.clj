@@ -173,6 +173,12 @@
                           (reverse bin-str))]
     (/ (int (reduce + pows)) 2)))
 
+;135. Write a function that accepts a variable length mathematical expression consisting of numbers and the operations +, -, *, and /.
+(fn [& args]
+  (reduce (fn [res [op num]] (op res num))
+          (first args)
+          (partition 2 (rest args))))
+
 ;143. Create a function that computes the dot product of two sequences. You may assume that the vectors will have the same length.
 #(reduce + (map * %1 %2))
 

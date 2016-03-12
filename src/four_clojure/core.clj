@@ -1,9 +1,20 @@
 (ns four-clojure.core
   (:gen-class))
 
-#(reduce + (map * %1 %2))
+(defn infix-calc
+  [& args]
+  (reduce (fn [res [op num]] (op res num))
+          (first args)
+          (partition 2 (rest args))))
 
-(= 0 (dot-product [0 1 0] [1 0 0]))
-(= 3 (dot-product [1 1 1] [1 1 1]))
-(= 32 (dot-product [1 2 3] [4 5 6]))
-(= 256 (dot-product [2 5 6] [100 10 1]))
+(fn [& args]
+  (reduce (fn [res [op num]] (op res num))
+          (first args)
+          (partition 2 (rest args))))
+
+(infix-calc 38 + 48 - 2 / 2)
+
+(= 7  (infix-calc 2 + 5))
+(= 42 (infix-calc 38 + 48 - 2 / 2))
+(= 8  (infix-calc 10 / 2 - 1 * 2))
+(= 72 (infix-calc 20 / 2 + 2 + 4 + 8 - 6 - 10 * 9))
