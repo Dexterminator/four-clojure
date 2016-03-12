@@ -182,6 +182,9 @@
 ;143. Create a function that computes the dot product of two sequences. You may assume that the vectors will have the same length.
 #(reduce + (map * %1 %2))
 
+;157. Transform a sequence into a sequence of pairs containing the original elements along with their index.
+(fn [coll] (map-indexed #(vector %2 %1) coll))
+
 ;166. Write a function that takes three arguments, a less than operator for the data and two items to compare.
 ; The function should return a keyword describing the relationship between the two items.
 (fn [lt-fn x y]

@@ -1,20 +1,10 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn infix-calc
-  [& args]
-  (reduce (fn [res [op num]] (op res num))
-          (first args)
-          (partition 2 (rest args))))
 
-(fn [& args]
-  (reduce (fn [res [op num]] (op res num))
-          (first args)
-          (partition 2 (rest args))))
+(fn [coll] (map-indexed #(vector %2 %1) coll))
 
-(infix-calc 38 + 48 - 2 / 2)
+(indexes [:a :b :c])
 
-(= 7  (infix-calc 2 + 5))
-(= 42 (infix-calc 38 + 48 - 2 / 2))
-(= 8  (infix-calc 10 / 2 - 1 * 2))
-(= 72 (infix-calc 20 / 2 + 2 + 4 + 8 - 6 - 10 * 9))
+(= (indexes [:a :b :c]) [[:a 0] [:b 1] [:c 2]])
+
