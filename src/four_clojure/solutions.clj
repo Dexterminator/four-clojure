@@ -141,6 +141,12 @@
 ; parameters are true, but not all of the parameters are true. Otherwise your function should return false.
 (fn [& args] (boolean (and (some false? args) (some true? args))))
 
+;90. Write a function which calculates the Cartesian product of two sets.
+(fn [set1 set2] (set (for [x set1 y set2] [x y])))
+
+;99. Write a function which multiplies two numbers and returns the result as a sequence of its digits.
+(fn[x y] (map #(Character/getNumericValue %) (str (* x y))))
+
 ;107. Given a positive integer n, return a function (f x) which computes xn.
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))

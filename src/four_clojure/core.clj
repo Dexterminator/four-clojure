@@ -1,11 +1,15 @@
 (ns four-clojure.core
   (:gen-class))
 
-(fn [n] (fn [x] (int (Math/pow x n))))
+(fn [set1 set2] (set (for [x set1 y set2] [x y])))
 
-((simple-closure 2) 16)
+(cartestian-product #{"ace" "king" "queen"} #{"♠" "♥" "♦" "♣"})
 
-(= 256 ((simple-closure 2) 16),
-   ((simple-closure 8) 2))
-(= [1 8 27 64] (map (simple-closure 3) [1 2 3 4]))
-(= [1 2 4 8 16] (map #((simple-closure %) 2) [0 1 2 3 4]))
+(= (cartestian-product #{"ace" "king" "queen"} #{"♠" "♥" "♦" "♣"})
+   #{["ace"   "♠"] ["ace"   "♥"] ["ace"   "♦"] ["ace"   "♣"]
+     ["king"  "♠"] ["king"  "♥"] ["king"  "♦"] ["king"  "♣"]
+     ["queen" "♠"] ["queen" "♥"] ["queen" "♦"] ["queen" "♣"]})
+(= (cartestian-product #{1 2 3} #{4 5})
+   #{[1 4] [2 4] [3 4] [1 5] [2 5] [3 5]})
+(= 300 (count (cartestian-product (into #{} (range 10))
+                  (into #{} (range 30)))))
