@@ -1,15 +1,15 @@
 (ns four-clojure.core
   (:gen-class))
 
-(fn [set1 set2] (set (for [x set1 y set2] [x y])))
+(fn [f s]
+  (reduce (fn [groups x]
+            (update-in groups [(f x)] #(concat % [x])))
+          {}
+          s))
 
-(cartestian-product #{"ace" "king" "queen"} #{"♠" "♥" "♦" "♣"})
-
-(= (cartestian-product #{"ace" "king" "queen"} #{"♠" "♥" "♦" "♣"})
-   #{["ace"   "♠"] ["ace"   "♥"] ["ace"   "♦"] ["ace"   "♣"]
-     ["king"  "♠"] ["king"  "♥"] ["king"  "♦"] ["king"  "♣"]
-     ["queen" "♠"] ["queen" "♥"] ["queen" "♦"] ["queen" "♣"]})
-(= (cartestian-product #{1 2 3} #{4 5})
-   #{[1 4] [2 4] [3 4] [1 5] [2 5] [3 5]})
-(= 300 (count (cartestian-product (into #{} (range 10))
-                  (into #{} (range 30)))))
+(my-group-by #(> % 5) [1 3 6 8])
+(= (my-group-by #(> % 5) [1 3 6 8]) {false [1 3], true [6 8]})
+(= (my-group-by #(apply / %) [[1 2] [2 4] [4 6] [3 6]])
+   {1/2 [[1 2] [2 4] [3 6]], 2/3 [[4 6]]})
+(= (my-group-by count [[1] [1 2] [3] [1 2 3] [2 3]])
+   {1 [[1] [3]], 2 [[1 2] [2 3]], 3 [[1 2 3]]})

@@ -131,6 +131,14 @@
 ; sequence of x, (f x), (f (f x)), (f (f (f x))), etc.
 (fn my-iterate [f x] (lazy-seq (cons x (my-iterate f (f x)))))
 
+;63. Given a function f and a sequence s, write a function which returns a map. The keys should be the values of f
+; applied to each item in s. The value at each key should be a vector of corresponding items in the order they appear in s.
+(fn [f s]
+  (reduce (fn [groups x]
+            (update-in groups [(f x)] #(concat % [x])))
+          {}
+          s))
+
 ;66. Given two integers, write a function which returns the greatest common divisor.
 (fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
 
