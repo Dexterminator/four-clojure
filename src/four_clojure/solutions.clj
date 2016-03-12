@@ -159,6 +159,12 @@
 ;90. Write a function which calculates the Cartesian product of two sets.
 (fn [set1 set2] (set (for [x set1 y set2] [x y])))
 
+;97. Write a function which returns the nth row of Pascal's Triangle.
+(fn [rownum]
+  (letfn [(pascal-row [row]
+            (flatten [1 (map #(reduce + %) (partition 2 1 row)) 1]))]
+    (last (take rownum (iterate pascal-row [1])))))
+
 ;99. Write a function which multiplies two numbers and returns the result as a sequence of its digits.
 (fn[x y] (map #(Character/getNumericValue %) (str (* x y))))
 
