@@ -254,6 +254,12 @@
             (flatten [(first row) (map #(reduce +' %) (partition 2 1 row)) (last row)]))]
     (iterate pascal-row row)))
 
+;153. Given a set of sets, create a function which returns true if no two of those sets have any elements in common and false otherwise.
+(fn [sets]
+  (empty? (for [set1 sets set2 sets
+                :when (and (not= set1 set2) (seq (clojure.set/intersection set1 set2)))]
+            [set1 set2])))
+
 ;157. Transform a sequence into a sequence of pairs containing the original elements along with their index.
 (fn [coll] (map-indexed #(vector %2 %1) coll))
 
