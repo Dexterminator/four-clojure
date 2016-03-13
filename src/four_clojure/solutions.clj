@@ -237,6 +237,13 @@
 ;143. Create a function that computes the dot product of two sequences. You may assume that the vectors will have the same length.
 #(reduce + (map * %1 %2))
 
+;147. Write a function that, for any given input vector of numbers, returns an infinite lazy sequence of vectors,
+; where each next one is constructed from the previous following the rules used in Pascal's Triangle.
+(fn [row]
+  (letfn [(pascal-row [row]
+            (flatten [(first row) (map #(reduce +' %) (partition 2 1 row)) (last row)]))]
+    (iterate pascal-row row)))
+
 ;157. Transform a sequence into a sequence of pairs containing the original elements along with their index.
 (fn [coll] (map-indexed #(vector %2 %1) coll))
 

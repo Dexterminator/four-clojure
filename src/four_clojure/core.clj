@@ -1,37 +1,21 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn rec-card
-  [[suit rank]]
-  {:suit
-   (case suit
-     \S :spade
-     \D :diamond
-     \H :heart
-     \C :club)
-   :rank
-   (case rank
-     \2 0
-     \3 1
-     \4 2
-     \5 3
-     \6 4
-     \7 5
-     \8 6
-     \9 7
-     \T 8
-     \J 9
-     \Q 10
-     \K 11
-     \A 12)})
+(defn pascal
+  [row]
+  (letfn [(pascal-row [row]
+            (flatten [(first row) (map #(reduce +' %) (partition 2 1 row)) (last row)]))]
+    (iterate pascal-row row)))
 
+(fn [row]
+  (letfn [(pascal-row [row]
+            (flatten [(first row) (map #(reduce +' %) (partition 2 1 row)) (last row)]))]
+    (iterate pascal-row row)))
 
-(rec-card "DQ")
-(rec-card "H5")
+(second (pascal [2 3 2]))
+(take 2 (pascal [3 1 2]))
 
-(= {:suit :diamond :rank 10} (rec-card "DQ"))
-(= {:suit :heart :rank 3} (rec-card "H5"))
-(= {:suit :club :rank 12} (rec-card "CA"))
-(= (range 13) (map (comp :rank rec-card str)
-                   '[S2 S3 S4 S5 S6 S7
-                     S8 S9 ST SJ SQ SK SA]))
+(= (second (pascal [2 3 2])) [2 5 5 2])
+(= (take 5 (pascal [1])) [[1] [1 1] [1 2 1] [1 3 3 1] [1 4 6 4 1]])
+(= (take 2 (pascal [3 1 2])) [[3 1 2] [3 4 3 2]])
+(= (take 100 (pascal [2 4 2])) (rest (take 101 (pascal [2 2]))))
