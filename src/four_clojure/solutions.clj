@@ -159,6 +159,19 @@
 ;90. Write a function which calculates the Cartesian product of two sets.
 (fn [set1 set2] (set (for [x set1 y set2] [x y])))
 
+;95. Write a predicate which checks whether or not a given sequence represents a binary tree.
+; Each node in the tree must have a value, a left child, and a right child.
+(fn binary-tree?
+  [coll]
+  (if (nil? coll)
+    true
+    (and
+      (coll? coll)
+      (= 3 (count coll))
+      ((complement coll?) (first coll))
+      (binary-tree? (second coll))
+      (binary-tree? (last coll)))))
+
 ;97. Write a function which returns the nth row of Pascal's Triangle.
 (fn [rownum]
   (letfn [(pascal-row [row]

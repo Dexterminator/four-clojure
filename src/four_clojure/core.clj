@@ -1,24 +1,31 @@
 (ns four-clojure.core
   (:gen-class))
 
-(fn [f coll]
-  (when-let [x (first coll)]
-    (lazy-seq (cons (f x) (my-map f (rest coll))))))
+(defn binary-tree?
+  [coll]
+  (if (nil? coll)
+    true
+    (and
+      (coll? coll)
+      (= 3 (count coll))
+      ((complement coll?) (first coll))
+      (binary-tree? (second coll))
+      (binary-tree? (last coll)))))
 
-(defn my-map
-  [f coll]
-  (when-let [x (first coll)]
-    (lazy-seq (cons (f x) (my-map f (rest coll))))))
+(binary-tree? [1 [2 [3 [4 nil nil] nil] nil] nil])
+(binary-tree? [1 [2 [3 [4 false nil] nil] nil] nil])
 
-(first [])
-
-(my-map inc [1 2 3])
-(= [3 4 5 6 7]
-   (my-map inc [2 3 4 5 6]))
-(= (repeat 10 nil)
-   (my-map (fn [_] nil) (range 10)))
-(= [1000000 1000001]
-   (->> (my-map inc (range))
-        (drop (dec 1000000))
-        (take 2)))
-
+(= (binary-tree? '(:a (:b nil nil) nil))
+   true)
+(= (binary-tree? '(:a (:b nil nil)))
+   false)
+(= (binary-tree? [1 nil [2 [3 nil nil] [4 nil nil]]])
+   true)
+(= (binary-tree? [1 [2 nil nil] [3 nil nil] [4 nil nil]])
+   false)
+(= (binary-tree? [1 [2 [3 [4 nil nil] nil] nil] nil])
+   true)
+(= (binary-tree? [1 [2 [3 [4 false nil] nil] nil] nil])
+   false)
+(= (binary-tree? '(:a nil ()))
+   false)
