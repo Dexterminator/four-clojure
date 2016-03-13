@@ -204,6 +204,30 @@
                           (reverse bin-str))]
     (/ (int (reduce + pows)) 2)))
 
+;128. Write a function which converts (for example) the string "SJ" into a map of {:suit :spade, :rank 9}.
+(fn [[suit rank]]
+  {:suit
+   (case suit
+     \S :spade
+     \D :diamond
+     \H :heart
+     \C :club)
+   :rank
+   (case rank
+     \2 0
+     \3 1
+     \4 2
+     \5 3
+     \6 4
+     \7 5
+     \8 6
+     \9 7
+     \T 8
+     \J 9
+     \Q 10
+     \K 11
+     \A 12)})
+
 ;135. Write a function that accepts a variable length mathematical expression consisting of numbers and the operations +, -, *, and /.
 (fn [& args]
   (reduce (fn [res [op num]] (op res num))
