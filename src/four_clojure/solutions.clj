@@ -190,6 +190,13 @@
   (when-let [x (first coll)]
     (lazy-seq (cons (f x) (my-map f (rest coll))))))
 
+;120. Write a function which takes a collection of integers as an argument.
+; Return the count of how many elements are smaller than the sum of their squared component digits.
+(fn [nums]
+  (letfn [(square-sum [num]
+            (reduce + (map #(Math/pow (Character/getNumericValue %) 2) (str num))))]
+    (count (filter #(> (square-sum %) %) nums))))
+
 ;122. Convert a binary number, provided in the form of a string, to its numerical value.
 (fn [bin-str]
   (let [pows (map-indexed (fn [idx num]
