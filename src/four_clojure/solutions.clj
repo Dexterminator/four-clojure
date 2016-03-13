@@ -67,7 +67,7 @@
   (reduce * (range 1 (inc n))))
 
 ;43. Write a function which reverses the interleave process into x number of subsequences.
-(fn[lst n]
+(fn [lst n]
   (apply map vector (partition n lst)))
 
 ;44. Write a function which can rotate a sequence in either direction.
@@ -163,14 +163,13 @@
 ; Each node in the tree must have a value, a left child, and a right child.
 (fn binary-tree?
   [coll]
-  (if (nil? coll)
-    true
-    (and
-      (coll? coll)
-      (= 3 (count coll))
-      ((complement coll?) (first coll))
-      (binary-tree? (second coll))
-      (binary-tree? (last coll)))))
+  (or (nil? coll)
+      (and
+        (coll? coll)
+        (= 3 (count coll))
+        ((complement coll?) (first coll))
+        (binary-tree? (second coll))
+        (binary-tree? (last coll)))))
 
 ;97. Write a function which returns the nth row of Pascal's Triangle.
 (fn [rownum]
@@ -179,7 +178,7 @@
     (last (take rownum (iterate pascal-row [1])))))
 
 ;99. Write a function which multiplies two numbers and returns the result as a sequence of its digits.
-(fn[x y] (map #(Character/getNumericValue %) (str (* x y))))
+(fn [x y] (map #(Character/getNumericValue %) (str (* x y))))
 
 ;100. Write a function which calculates the least common multiple.
 ; Your function should accept a variable number of positive integers or ratios.
@@ -242,6 +241,11 @@
 
 ;143. Create a function that computes the dot product of two sequences. You may assume that the vectors will have the same length.
 #(reduce + (map * %1 %2))
+
+;146. For this problem, your goal is to "flatten" a map of hashmaps.
+(fn [main-map]
+  (into {} (for [[key, nested-map] main-map
+                 [nested-key nested-val] nested-map] [[key nested-key] nested-val])))
 
 ;147. Write a function that, for any given input vector of numbers, returns an infinite lazy sequence of vectors,
 ; where each next one is constructed from the previous following the rules used in Pascal's Triangle.

@@ -1,17 +1,26 @@
 (ns four-clojure.core
   (:gen-class))
 
-;(defn lcm
-;  [& nums])
+(defn flatten-map
+  [main-map]
+  (into {} (for [[key, nested-map] main-map
+                 [nested-key nested-val] nested-map] [[key nested-key] nested-val])))
 
-(defn lcm
-  [& nums]
-  (letfn [(gcd [a b] (if (zero? b) a (recur b (mod a b))))]
-    (reduce #(/ (* %1 %2) (gcd %1 %2)) nums)))
+(fn [main-map]
+  (into {} (for [[key, nested-map] main-map
+                 [nested-key nested-val] nested-map] [[key nested-key] nested-val])))
 
-(lcm 2 3)
-(== (lcm 2 3) 6)
-(== (lcm 5 3 7) 105)
-(== (lcm 1/3 2/5) 2)
-(== (lcm 3/4 1/6) 3/2)
-(== (lcm 7 5/7 2 3/5) 210)
+(flatten-map '{a {p 1, q 2}
+               b {m 3, n 4}})
+
+(= (flatten-map '{a {p 1, q 2}
+         b {m 3, n 4}})
+   '{[a p] 1, [a q] 2
+     [b m] 3, [b n] 4})
+(= (flatten-map '{[1] {a b c d}
+         [2] {q r s t u v w x}})
+   '{[[1] a] b, [[1] c] d,
+     [[2] q] r, [[2] s] t,
+     [[2] u] v, [[2] w] x})
+(= (flatten-map '{m {1 [a b c] 3 nil}})
+   '{[m 1] [a b c], [m 3] nil})
