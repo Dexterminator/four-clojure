@@ -181,6 +181,12 @@
 ;99. Write a function which multiplies two numbers and returns the result as a sequence of its digits.
 (fn[x y] (map #(Character/getNumericValue %) (str (* x y))))
 
+;100. Write a function which calculates the least common multiple.
+; Your function should accept a variable number of positive integers or ratios.
+(fn [& nums]
+  (letfn [(gcd [a b] (if (zero? b) a (recur b (mod a b))))]
+    (reduce #(/ (* %1 %2) (gcd %1 %2)) nums)))
+
 ;107. Given a positive integer n, return a function (f x) which computes xn.
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
