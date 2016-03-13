@@ -1,31 +1,24 @@
 (ns four-clojure.core
   (:gen-class))
 
+(fn [f coll]
+  (when-let [x (first coll)]
+    (lazy-seq (cons (f x) (my-map f (rest coll))))))
 
-;(defn pascal-row [row]
-;  (flatten [1 (map #(reduce + %) (partition 2 1 row)) 1]))
+(defn my-map
+  [f coll]
+  (when-let [x (first coll)]
+    (lazy-seq (cons (f x) (my-map f (rest coll))))))
 
-(defn pascals
-  [rownum]
-  (letfn [(pascal-row [row]
-            (flatten [1 (map #(reduce + %) (partition 2 1 row)) 1]))]
-    (last (take rownum (iterate pascal-row [1])))))
+(first [])
 
-(fn [rownum]
-  (letfn [(pascal-row [row]
-            (flatten [1 (map #(reduce + %) (partition 2 1 row)) 1]))]
-    (last (take rownum (iterate pascal-row [1])))))
-
-(pascals 2)
-(pascals 4)
-(map pascals (range 1 6))
-(= (pascals 1) [1])
-(= (map pascals (range 1 6))
-   [     [1]
-    [1 1]
-    [1 2 1]
-    [1 3 3 1]
-    [1 4 6 4 1]])
-(= (pascals 11)
-   [1 10 45 120 210 252 210 120 45 10 1])
+(my-map inc [1 2 3])
+(= [3 4 5 6 7]
+   (my-map inc [2 3 4 5 6]))
+(= (repeat 10 nil)
+   (my-map (fn [_] nil) (range 10)))
+(= [1000000 1000001]
+   (->> (my-map inc (range))
+        (drop (dec 1000000))
+        (take 2)))
 

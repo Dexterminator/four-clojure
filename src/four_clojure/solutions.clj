@@ -172,6 +172,11 @@
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
 
+;118. Given a function f and an input sequence s, return a lazy sequence of (f x) for each element x in s.
+(fn my-map [f coll]
+  (when-let [x (first coll)]
+    (lazy-seq (cons (f x) (my-map f (rest coll))))))
+
 ;122. Convert a binary number, provided in the form of a string, to its numerical value.
 (fn [bin-str]
   (let [pows (map-indexed (fn [idx num]
