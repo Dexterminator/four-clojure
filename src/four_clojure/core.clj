@@ -1,15 +1,16 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn word-sort
-  [sentence]
-  (sort-by clojure.string/lower-case (re-seq #"\w+" sentence)))
+(defn perfect-squares
+  [num-str]
+  (clojure.string/join
+    ","
+    (filter (fn [num]
+              (let [root (Math/sqrt num)]
+                (== root (int root))))
+            (map #(Integer/parseInt %) (clojure.string/split num-str #",")))))
 
-(word-sort "Have a nice day.")
-
-(= (word-sort  "Have a nice day.")
-   ["a" "day" "Have" "nice"])
-(= (word-sort  "Clojure is a fun language!")
-   ["a" "Clojure" "fun" "is" "language"])
-(= (word-sort  "Fools fall for foolish follies.")
-   ["fall" "follies" "foolish" "Fools" "for"])
+(perfect-squares "15,16,25,36,37")
+(perfect-squares "4,5,6,7,8,9")
+(= (perfect-squares "4,5,6,7,8,9") "4,9")
+(= (perfect-squares "15,16,25,36,37") "16,25,36")

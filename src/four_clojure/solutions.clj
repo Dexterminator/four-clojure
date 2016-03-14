@@ -171,6 +171,16 @@
 (fn [sentence]
   (sort-by clojure.string/lower-case (re-seq #"\w+" sentence)))
 
+;74. Given a string of comma separated integers, write a function which returns a new comma separated
+; string that only contains the numbers which are perfect squares.
+(fn [num-str]
+  (clojure.string/join
+    ","
+    (filter (fn [num]
+              (let [root (Math/sqrt num)]
+                (== root (int root))))
+            (map #(Integer/parseInt %) (clojure.string/split num-str #",")))))
+
 ;81. Write a function which returns the intersection of two sets. The intersection is the sub-set of items that each set has in common.
 (fn my-intersection [set1 set2] (set (for [x set1 :when (set2 x)] x)))
 
