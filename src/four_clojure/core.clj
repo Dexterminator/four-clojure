@@ -1,25 +1,17 @@
 (ns four-clojure.core
   (:gen-class))
 
-(defn my-reductions
-  ([fun [x & xs]]
-   (my-reductions fun x xs))
-  ([fun val coll]
-   (if (seq coll)
-     (lazy-seq (cons val (my-reductions fun (fun val (first coll)) (rest coll))))
-     [val])))
+(defn black-box
+  [coll]
+  (let [fixed-coll (conj (empty coll) [:a :b] [:b :a])]
+    (cond
+      (= (:a fixed-coll) :b) :map
+      (= (conj fixed-coll [:a :b]) fixed-coll) :set
+      (= (first fixed-coll) [:b :a]) :list
+      (= (first fixed-coll) [:a :b]) :vector)))
 
-(defn my-reductions
-  ([fun [x & xs]]
-   (my-reductions fun x xs))
-  ([fun reduced [x & xs]]
-   (if x
-     (lazy-seq (cons reduced (my-reductions fun (fun reduced x) xs)))
-     (vector reduced))))
-
-(my-reductions conj [1] [2 3 4])
-(take 5 (my-reductions + (range)))
-
-(= (take 5 (my-reductions + (range))) [0 1 3 6 10])
-(= (my-reductions conj [1] [2 3 4]) [[1] [1 2] [1 2 3] [1 2 3 4]])
-(= (last (my-reductions * 2 [3 4 5])) (reduce * 2 [3 4 5]) 120)
+(= :map (black-box {:a 1, :b 2}))
+(= :list (black-box (range (rand-int 20))))
+(= :vector (black-box [1 2 3 4 5 6]))
+(= :set (black-box #{10 (rand-int 5)}))
+(= [:map :set :vector :list] (map black-box [{} #{} [] ()]))

@@ -153,6 +153,16 @@
           {}
           s))
 
+;65. Write a function which takes a collection and returns one of :map, :set, :list, or :vector -
+; describing the type of collection it was given.
+(fn [coll]
+  (let [fixed-coll (conj (empty coll) [:a :b] [:b :a])]
+    (cond
+      (= (:a fixed-coll) :b) :map
+      (= (conj fixed-coll [:a :b]) fixed-coll) :set
+      (= (first fixed-coll) [:b :a]) :list
+      (= (first fixed-coll) [:a :b]) :vector)))
+
 ;66. Given two integers, write a function which returns the greatest common divisor.
 (fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
 
