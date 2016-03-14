@@ -128,6 +128,16 @@
 ; sequence containing the result of applying each function left-to-right to the argument list.
 (fn [& fns] (fn [& args] (map #(apply % args) fns)))
 
+;60 Write a function which behaves like reduce, but returns each intermediate value of the reduction.
+; Your function must accept either two or three arguments, and the return sequence must be lazy.
+(fn my-reductions
+  ([fun [x & xs]]
+   (my-reductions fun x xs))
+  ([fun reduced [x & xs]]
+   (if x
+     (lazy-seq (cons reduced (my-reductions fun (fun reduced x) xs)))
+     (vector reduced))))
+
 ;61. Write a function which takes a vector of keys and a vector of values and constructs a map from them.
 #(apply assoc {} (interleave %1 %2))
 
