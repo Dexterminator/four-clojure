@@ -171,6 +171,19 @@
         (binary-tree? (second coll))
         (binary-tree? (last coll)))))
 
+;96. Write a predicate to determine whether or not a given binary tree is symmetric.
+(fn symmetric?
+  ([[_ left right]]
+   (symmetric? left right))
+  ([tree1 tree2]
+   (or
+     (and (nil? tree1) (nil? tree2))
+     (and (coll? tree1)
+          (coll? tree2)
+          (= (first tree1) (first tree2))
+          (symmetric? (second tree1) (last tree2))
+          (symmetric? (last tree1) (second tree2))))))
+
 ;97. Write a function which returns the nth row of Pascal's Triangle.
 (fn [rownum]
   (letfn [(pascal-row [row]
