@@ -166,6 +166,11 @@
 ;66. Given two integers, write a function which returns the greatest common divisor.
 (fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
 
+;70. Write a function that splits a sentence up into a sorted list of words.
+; Capitalization should not affect sort order and punctuation should be ignored.
+(fn [sentence]
+  (sort-by clojure.string/lower-case (re-seq #"\w+" sentence)))
+
 ;81. Write a function which returns the intersection of two sets. The intersection is the sub-set of items that each set has in common.
 (fn my-intersection [set1 set2] (set (for [x set1 :when (set2 x)] x)))
 
