@@ -124,6 +124,10 @@
                            (conj distinct-list val))]
         (recur (conj updated-list val) updated-list (rest remaining))))))
 
+;59. Take a set of functions and return a new function that takes a variable number of arguments and returns a
+; sequence containing the result of applying each function left-to-right to the argument list.
+(fn [& fns] (fn [& args] (map #(apply % args) fns)))
+
 ;61. Write a function which takes a vector of keys and a vector of values and constructs a map from them.
 #(apply assoc {} (interleave %1 %2))
 
