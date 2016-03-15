@@ -181,6 +181,14 @@
                 (== root (int root))))
             (map #(Integer/parseInt %) (clojure.string/split num-str #",")))))
 
+;77. Write a function which finds all the anagrams in a vector of words.
+(fn [words]
+  (->> (group-by frequencies words)
+       vals
+       (filter #(> (count %) 1))
+       (map set)
+       set))
+
 ;81. Write a function which returns the intersection of two sets. The intersection is the sub-set of items that each set has in common.
 (fn my-intersection [set1 set2] (set (for [x set1 :when (set2 x)] x)))
 
