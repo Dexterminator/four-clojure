@@ -266,6 +266,11 @@
   (letfn [(gcd [a b] (if (zero? b) a (recur b (mod a b))))]
     (reduce #(/ (* %1 %2) (gcd %1 %2)) nums)))
 
+;102. Write a function which takes lower-case hyphen-separated strings and converts them to camel-case strings.
+(fn [word]
+  (let [[first-word & rest-words] (clojure.string/split word #"-")]
+    (apply str first-word (map clojure.string/capitalize rest-words))))
+
 ;107. Given a positive integer n, return a function (f x) which computes xn.
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
