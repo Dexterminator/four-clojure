@@ -166,6 +166,19 @@
 ;66. Given two integers, write a function which returns the greatest common divisor.
 (fn gcd [a b] (if (zero? b) a (recur b (mod a b))))
 
+;69. Write a function which takes a function f and a variable number of maps. Your function should return a map
+; that consists of the rest of the maps conj-ed onto the first. If a key occurs in more than one map, the mapping(s)
+; from the latter (left-to-right) should be combined with the mapping in the result by calling (f val-in-result val-in-latter)
+(fn [f & maps]
+  (reduce (fn [merged-map new-map]
+            (reduce (fn [merged-map [key val]]
+                      (if (contains? merged-map key)
+                        (assoc merged-map key (f (get merged-map key) val))
+                        (conj merged-map [key val])))
+                    merged-map
+                    new-map))
+          maps))
+
 ;70. Write a function that splits a sentence up into a sorted list of words.
 ; Capitalization should not affect sort order and punctuation should be ignored.
 (fn [sentence]
