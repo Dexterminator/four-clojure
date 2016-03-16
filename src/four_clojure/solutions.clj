@@ -293,6 +293,12 @@
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
 
+;110. Write a function that returns a lazy sequence of "pronunciations" of a sequence of numbers.
+(fn pronunciations
+  [nums]
+  (let [x (mapcat #(vector (count %) (first %)) (partition-by identity nums))]
+    (lazy-seq (cons x (pronunciations x)))))
+
 ;118. Given a function f and an input sequence s, return a lazy sequence of (f x) for each element x in s.
 (fn my-map [f coll]
   (when-let [x (first coll)]
