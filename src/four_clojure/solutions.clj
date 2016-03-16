@@ -278,6 +278,17 @@
   (let [[first-word & rest-words] (clojure.string/split word #"-")]
     (apply str first-word (map clojure.string/capitalize rest-words))))
 
+;105. Given an input sequence of keywords and numbers, create a map such that each key in the map is a keyword,
+; and the value is a sequence of all the numbers (if any) between it and the next keyword in the sequence.
+(fn [coll]
+  (loop [curr-kw (first coll) mapped {} remaining coll]
+    (if (seq remaining)
+      (let [v (first remaining)]
+        (if (keyword? v)
+          (recur v (assoc mapped v []) (rest remaining))
+          (recur curr-kw (assoc mapped curr-kw (conj (get mapped curr-kw) v)) (rest remaining))))
+      mapped)))
+
 ;107. Given a positive integer n, return a function (f x) which computes xn.
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
