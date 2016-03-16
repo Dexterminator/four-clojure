@@ -257,6 +257,13 @@
             (flatten [1 (map #(reduce + %) (partition 2 1 row)) 1]))]
     (last (take rownum (iterate pascal-row [1])))))
 
+;98. Write a function with arguments f and D that computes the equivalence classes of D with respect to f.
+(fn [f d]
+  (->> (group-by f d)
+       vals
+       (map set)
+       set))
+
 ;99. Write a function which multiplies two numbers and returns the result as a sequence of its digits.
 (fn [x y] (map #(Character/getNumericValue %) (str (* x y))))
 
