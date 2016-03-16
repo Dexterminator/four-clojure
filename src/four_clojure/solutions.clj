@@ -351,6 +351,12 @@
 ;143. Create a function that computes the dot product of two sequences. You may assume that the vectors will have the same length.
 #(reduce + (map * %1 %2))
 
+;144. Write an oscillating iterate: a function that takes an initial value and a variable number of functions.
+; It should return a lazy sequence of the functions applied to the value in order, restarting from the first
+; function after it hits the end.
+(fn [x & fns]
+  (reductions (fn [res f] (f res)) x (cycle fns)))
+
 ;146. For this problem, your goal is to "flatten" a map of hashmaps.
 (fn [main-map]
   (into {} (for [[key, nested-map] main-map
