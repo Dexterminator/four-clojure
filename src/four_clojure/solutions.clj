@@ -293,6 +293,16 @@
 ; Observe that the effect of this is to preserve the value of n for use outside the scope in which it is defined.
 (fn [n] (fn [x] (int (Math/pow x n))))
 
+;108. Given any number of sequences, each sorted from smallest to largest, find the smallest single number
+; which appears in all of the sequences.
+(fn [& colls]
+  (let [largest (apply max (map first colls))
+        shifted (map (fn [coll] (drop-while #(> largest %) coll)) colls)
+        firsts (map first shifted)]
+    (if (apply = firsts)
+      (first firsts)
+      (recur shifted))))
+
 ;110. Write a function that returns a lazy sequence of "pronunciations" of a sequence of numbers.
 (fn pronunciations
   [nums]
