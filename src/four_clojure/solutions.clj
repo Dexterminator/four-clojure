@@ -395,3 +395,10 @@
     (lt-fn x y) :lt
     (lt-fn y x) :gt
     :else :eq))
+
+;171. Write a function that takes a sequence of integers and returns a sequence of "intervals". Each interval is a a
+; vector of two integers, start and end, such that all integers between start and end (inclusive) are contained in the input sequence.
+(fn [nums]
+  (->> (map list (distinct (sort nums)) (range))
+       (partition-by #(apply - %))
+       (map (fn [coll] [(ffirst coll) (first (last coll))]))))
