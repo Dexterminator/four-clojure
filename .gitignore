@@ -9,6 +9,8 @@ pom.xml.asc
 /.nrepl-port
 .hgignore
 .hg/
+*.iml
+four-clojure.iml
 
 # Created by https://www.gitignore.io/api/intellij
 
