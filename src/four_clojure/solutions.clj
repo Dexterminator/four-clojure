@@ -309,6 +309,13 @@
   (let [x (mapcat #(vector (count %) (first %)) (partition-by identity nums))]
     (lazy-seq (cons x (pronunciations x)))))
 
+;114. Write a function which accepts an integer n, a predicate p, and a sequence. It should return a lazy sequence of
+; items in the list up to, but not including, the nth item that satisfies the predicate.
+(fn global-take-while [n p [x & xs]]
+  (let [updated-count (if (p x) (dec n) n)]
+    (if (pos? updated-count)
+      (lazy-seq (cons x (global-take-while updated-count p xs))))))
+
 ;118. Given a function f and an input sequence s, return a lazy sequence of (f x) for each element x in s.
 (fn my-map [f coll]
   (when-let [x (first coll)]
