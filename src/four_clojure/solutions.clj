@@ -409,3 +409,17 @@
   (->> (map list (distinct (sort nums)) (range))
        (partition-by #(apply - %))
        (map (fn [coll] [(ffirst coll) (first (last coll))]))))
+
+;177. Write a function that takes in a string and returns truthy if all square [ ] round ( ) and curly { } brackets
+; are properly paired and legally nested, or returns falsey otherwise.
+(fn [s]
+  (let [brackets {\( \), \{ \}, \[ \]}]
+    (loop [lefts '() chars (seq s)]
+      (cond
+        (and (empty? lefts) (empty? chars)) true
+        (seq chars)
+        (let [c (first chars)]
+          (cond
+            (#{\( \{ \[} c) (recur (conj lefts c) (rest chars))
+            (#{\) \} \]} c) (if (= c (brackets (peek lefts))) (recur (pop lefts) (rest chars)))
+            :else (recur lefts (rest chars))))))))
