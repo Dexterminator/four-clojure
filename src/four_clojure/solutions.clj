@@ -194,6 +194,11 @@
                 (== root (int root))))
             (map #(Integer/parseInt %) (clojure.string/split num-str #",")))))
 
+;75. Write a function which calculates Euler's totient function.
+(fn [n]
+  (letfn [(gcd [a b] (if (zero? b) a (recur b (mod a b))))]
+    (count (filter #(= 1 (gcd % n)) (range n)))))
+
 ;77. Write a function which finds all the anagrams in a vector of words.
 (fn [words]
   (->> (group-by frequencies words)
