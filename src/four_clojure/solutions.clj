@@ -234,7 +234,7 @@
 ;93. Write a function which flattens any nested combination of sequential things (lists, vectors, etc.), but maintains
 ; the lowest level sequential items.
 (fn [xs]
-  (filter #(and (sequential? %) ((complement some) sequential? %))
+  (filter #(and (sequential? %) (not-any? sequential? %))
           (tree-seq sequential? seq xs)))
 
 ;95. Write a predicate which checks whether or not a given sequence represents a binary tree.
