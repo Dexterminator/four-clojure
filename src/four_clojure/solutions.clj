@@ -214,6 +214,14 @@
       (recur (res))
       res)))
 
+;80. A number is "perfect" if the sum of its divisors equal the number itself. 6 is a perfect number because 1+2+3=6.
+; Write a function which returns true for perfect numbers and false otherwise.
+(fn [n]
+  (->> (range 1 n)
+       (filter #(zero? (mod n %)))
+       (apply +)
+       (= n)))
+
 ;81. Write a function which returns the intersection of two sets. The intersection is the sub-set of items that each set has in common.
 (fn my-intersection [set1 set2] (set (for [x set1 :when (set2 x)] x)))
 
