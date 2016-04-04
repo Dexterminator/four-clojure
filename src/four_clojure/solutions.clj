@@ -414,6 +414,10 @@
 ;157. Transform a sequence into a sequence of pairs containing the original elements along with their index.
 (fn [coll] (map-indexed #(vector %2 %1) coll))
 
+;158. Write a function that accepts a curried function of unknown arity n. Return an equivalent function of n arguments.
+(fn [f]
+  (fn [& args] (reduce (fn [fun arg] (fun arg)) f args)))
+
 ;166. Write a function that takes three arguments, a less than operator for the data and two items to compare.
 ; The function should return a keyword describing the relationship between the two items.
 (fn [lt-fn x y]
