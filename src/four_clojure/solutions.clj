@@ -325,7 +325,7 @@
 ;110. Write a function that returns a lazy sequence of "pronunciations" of a sequence of numbers.
 (fn pronunciations
   [nums]
-  (let [x (mapcat #(vector (count %) (first %)) (partition-by identity nums))]
+  (let [x (mapcat (juxt count first) (partition-by identity nums))]
     (lazy-seq (cons x (pronunciations x)))))
 
 ;114. Write a function which accepts an integer n, a predicate p, and a sequence. It should return a lazy sequence of
