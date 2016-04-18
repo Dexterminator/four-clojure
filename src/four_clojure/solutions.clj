@@ -343,6 +343,15 @@
     (if (pos? updated-count)
       (lazy-seq (cons x (global-take-while updated-count p xs))))))
 
+;115. A balanced number is one whose component digits have the same sum on the left and right halves of the number.
+; Write a function which accepts an integer n, and returns true iff n is balanced.
+(fn [n]
+  (let [sum (fn [digits] (apply + (map #(Character/getNumericValue %) digits)))
+        digits (str n)
+        [left right] (split-at (int (/ (count digits) 2)) digits)
+        adjusted-right (drop (- (count right) (count left)) right)]
+    (= (sum left) (sum adjusted-right))))
+
 ;118. Given a function f and an input sequence s, return a lazy sequence of (f x) for each element x in s.
 (fn my-map [f coll]
   (when-let [x (first coll)]
