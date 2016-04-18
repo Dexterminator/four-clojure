@@ -114,15 +114,14 @@
           (group-by identity coll)))
 
 ;56. Write a function which removes the duplicates from a sequence. Order of the items must be maintained.
-(fn [coll]
-  (loop [encountered #{} distinct-list [] remaining coll]
-    (if-not (seq remaining)
-      distinct-list
-      (let [val (first remaining)
-            updated-list (if (some #{val} encountered)
-                           distinct-list
-                           (conj distinct-list val))]
-        (recur (conj updated-list val) updated-list (rest remaining))))))
+(fn my-distinct
+  ([coll] (my-distinct coll #{} []))
+  ([[x & xs] encountered res]
+   (if (nil? x)
+     res
+     (if (encountered x)
+       (recur xs encountered res)
+       (recur xs (conj encountered x) (conj res x))))))
 
 ;59. Take a set of functions and return a new function that takes a variable number of arguments and returns a
 ; sequence containing the result of applying each function left-to-right to the argument list.
