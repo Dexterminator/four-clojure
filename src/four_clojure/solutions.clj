@@ -228,6 +228,15 @@
 ; parameters are true, but not all of the parameters are true. Otherwise your function should return false.
 (fn [& args] (boolean (and (some false? args) (some true? args))))
 
+;86. Write a function that determines if a number is happy or not.
+(fn happy? [n]
+  (letfn [(square [n] (let [num (Character/getNumericValue n)] (* num num)))
+          (next-happy [n] (apply + (map square (str n))))]
+    (case n
+      1 true
+      4 false
+      (happy? (next-happy n)))))
+
 ;88. Write a function which returns the symmetric difference of two sets.
 ; The symmetric difference is the set of items belonging to one but not both of the two sets.
 (fn [set1 set2]
