@@ -395,6 +395,12 @@
      \K 11
      \A 12)})
 
+;132 Write a function that returns a new collection where the value is inserted between every two items that satisfy a predicate.
+(fn [pred value coll]
+  (mapcat
+    (fn [[x y]] (if (and y (pred x y)) [x value] [x]))
+    (partition-all 2 1 coll)))
+
 ;135. Write a function that accepts a variable length mathematical expression consisting of numbers and the operations +, -, *, and /.
 (fn [& args]
   (reduce (fn [res [op num]] (op res num))
