@@ -183,6 +183,20 @@
 (fn [sentence]
   (sort-by clojure.string/lower-case (re-seq #"\w+" sentence)))
 
+;73. Write a function which analyzes a tic-tac-toe board and returns :x if X has won, :o if O has won,
+; and nil if neither player has won.
+(fn [[r1 r2 r3 :as horizontals]]
+  (let [verticals (map (fn [i] [(r1 i) (r2 i) (r3 i)]) (range 3))
+        diagonal1 [(r1 0) (r2 1) (r3 2)]
+        diagonal2 [(r1 2) (r2 1) (r3 0)]
+        all-rows (concat [diagonal1 diagonal2] horizontals verticals)]
+    (loop [[r & rs] all-rows]
+      (cond
+        (nil? r) nil
+        (every? #{:x} r) :x
+        (every? #{:o} r) :o
+        :else (recur rs)))))
+
 ;74. Given a string of comma separated integers, write a function which returns a new comma separated
 ; string that only contains the numbers which are perfect squares.
 (fn [num-str]
